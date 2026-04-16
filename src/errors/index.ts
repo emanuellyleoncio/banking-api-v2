@@ -9,19 +9,13 @@ export class AppError extends Error {
 }
 
 export class NotFoundError extends AppError {
-  constructor(message = 'Recurso não encontrado.') {
+  constructor(message = 'Resource not found.') {
     super(message, 404);
   }
 }
 
-export class ConflictError extends AppError {
-  constructor(message: string) {
-    super(message, 409);
-  }
-}
-
 export class ForbiddenError extends AppError {
-  constructor(message = 'Acesso negado.') {
+  constructor(message = 'Access denied.') {
     super(message, 403);
   }
 }
@@ -35,5 +29,11 @@ export class UnprocessableError extends AppError {
 export class ValidationError extends AppError {
   constructor(message: string) {
     super(message, 400);
+  }
+}
+
+export class ConflictError extends AppError {
+  constructor(message: string) {
+    super(message, 409);
   }
 }
