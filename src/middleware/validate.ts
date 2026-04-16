@@ -1,10 +1,10 @@
 import type { Request, Response, NextFunction } from "express";
-import type { ZodSchema } from "zod/v3";
+import type { ZodType } from "zod";
 
 
 type Source = 'body' | 'query' | 'params';
 
-const validate = (schema: ZodSchema, source: Source = 'body') =>
+const validate = (schema: ZodType, source: Source = 'body') =>
   (req: Request, res: Response, next: NextFunction): void => {
     if (!req[source]) {
       res.status(400).json({ message: `Data source "${source}" not found in request.` });

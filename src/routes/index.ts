@@ -1,10 +1,10 @@
 import { Router } from "express";
-import adminAuth from "../middleware/adminAuth";
-
 const router = Router()
 
-router.get('/', adminAuth, (request, response) => {
-    response.json({message: 'ok rota'})
-})
+import accountRouter from "./account";
+import authRouter from "./auth";
 
-export default router
+router.use('/account', accountRouter);
+router.use('/auth', authRouter);
+
+module.exports = router;
