@@ -24,12 +24,20 @@ export const registerSchema = z.object({
   document: z.string().regex(/^\d{11}$/, 'Document must contain exactly 11 digits.'),
   birth_date: z.coerce.date({ error: 'Invalid birth date.' }),
   phone: z.string().regex(/^\d{10,11}$/, 'Phone must contain 10 or 11 digits.').optional(),
-  email: z.string().email('Invalid email address.'),
+  email: z
+  .string()
+  .trim()
+  .toLowerCase()
+  .pipe(z.email("Invalid email address")),
   password: z.string().min(6, 'Password must have at least 6 characters.'),
 });
 
 export const loginSchema = z.object({
-  email: z.string().email('Invalid email address.'),
+  email: z
+  .string()
+  .trim()
+  .toLowerCase()
+  .pipe(z.email("Invalid email address")),
   password: z.string().min(1, 'Password is required.'),
 });
 

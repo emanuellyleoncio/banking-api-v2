@@ -7,6 +7,7 @@ CREATE TABLE "accounts" (
     "number" INTEGER NOT NULL,
     "balance" INTEGER NOT NULL DEFAULT 0,
     "document_cpf" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "birth_date" TIMESTAMP(3) NOT NULL,
     "phone_number" TEXT,
     "email" TEXT NOT NULL,

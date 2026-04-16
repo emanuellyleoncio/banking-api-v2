@@ -21,34 +21,35 @@ enum TransferType {
 
 
 model Account {
-  id        Int      @id @default(autoincrement())
-  number    Int      @unique
-  balance   Int      @default(0) @map("balance") 
+  id        String   @id @default(uuid()) @map("account_id")
+  number    Int      @unique @default(dbgenerated("nextval('account_number_seq')"))
+  balance   Int      @default(0) @map("balance")
   document  String   @unique @map("document_cpf")
-  name String 
-  birthDate DateTime @map("birth_date") 
+  name      String
+  birthDate DateTime @map("birth_date")
   phone     String?  @map("phone_number")
   email     String   @unique
   password  String   @map("password_hash")
-  
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  deposits             Deposit[]
-  withdrawals          Withdrawal[]
-  sentTransfers       Transfer[] @relation("OriginAccount")
-  receivedTransfers   Transfer[] @relation("DestinationAccount")
+  deposits          Deposit[]
+  withdrawals       Withdrawal[]
+  sentTransfers     Transfer[]   @relation("OriginAccount")
+  receivedTransfers Transfer[]   @relation("DestinationAccount")
 
   @@map("accounts")
+  @@index([createdAt])
 }
 
 model Deposit {
   id        Int      @id @default(autoincrement())
   amount    Int      @map("amount")
   createdAt DateTime @default(now()) @map("created_at")
-  
+
   account   Account  @relation(fields: [accountId], references: [id])
-  accountId Int      @map("account_id")
+  accountId String   @map("account_id")
 
   @@map("deposits")
 }
@@ -57,9 +58,9 @@ model Withdrawal {
   id        Int      @id @default(autoincrement())
   amount    Int      @map("amount")
   createdAt DateTime @default(now()) @map("created_at")
-  
+
   account   Account  @relation(fields: [accountId], references: [id])
-  accountId Int      @map("account_id")
+  accountId String   @map("account_id")
 
   @@map("withdrawals")
 }
@@ -71,11 +72,10 @@ model Transfer {
   createdAt     DateTime     @default(now()) @map("created_at")
 
   origin        Account      @relation("OriginAccount", fields: [originId], references: [id])
-  originId      Int          @map("origin_id")
-  
+  originId      String       @map("origin_id")
+
   destination   Account      @relation("DestinationAccount", fields: [destinationId], references: [id])
-  destinationId Int          @map("destination_id")
+  destinationId String       @map("destination_id")
 
   @@map("transfers")
 }
-
