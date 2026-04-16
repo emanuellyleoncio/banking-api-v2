@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum TransferType {
+  PIX
+  TED
+  DOC
+  INTERNAL 
+}
+
+
+model Account {
+  id        Int      @id @default(autoincrement())
+  number    Int      @unique
+  balance   Int      @default(0) @map("balance") 
+  document  String   @unique @map("document_cpf")
+  name String 
+  birthDate DateTime @map("birth_date") 
+  phone     String?  @map("phone_number")
+  email     String   @unique
+  password  String   @map("password_hash")
+  
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  deposits             Deposit[]
+  withdrawals          Withdrawal[]
+  sentTransfers       Transfer[] @relation("OriginAccount")
+  receivedTransfers   Transfer[] @relation("DestinationAccount")
+
+  @@map("accounts")
+}
+
+model Deposit {
+  id        Int      @id @default(autoincrement())
+  amount    Int      @map("amount")
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  account   Account  @relation(fields: [accountId], references: [id])
+  accountId Int      @map("account_id")
+
+  @@map("deposits")
+}
+
+model Withdrawal {
+  id        Int      @id @default(autoincrement())
+  amount    Int      @map("amount")
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  account   Account  @relation(fields: [accountId], references: [id])
+  accountId Int      @map("account_id")
+
+  @@map("withdrawals")
+}
+
+model Transfer {
+  id            Int          @id @default(autoincrement())
+  amount        Int          @map("amount")
+  type          TransferType @default(PIX) @map("transfer_type")
+  createdAt     DateTime     @default(now()) @map("created_at")
+
+  origin        Account      @relation("OriginAccount", fields: [originId], references: [id])
+  originId      Int          @map("origin_id")
+  
+  destination   Account      @relation("DestinationAccount", fields: [destinationId], references: [id])
+  destinationId Int          @map("destination_id")
+
+  @@map("transfers")
+}
+
