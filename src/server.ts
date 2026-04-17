@@ -1,10 +1,14 @@
+import 'dotenv/config'
+import { env } from './lib/env';
+
 import { startTracer, shutdownTracer } from './lib/tracer';
 startTracer();
 
 import app from './app';
 import logger from './lib/logger';
 
-const PORT = process.env.PORT ?? 3000;
+
+const PORT = env.PORT ?? 3000;
 
 const server = app.listen(PORT, () => {
   logger.info(`Servidor rodando na porta ${PORT}`);

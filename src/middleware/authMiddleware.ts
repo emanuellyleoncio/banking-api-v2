@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { ForbiddenError, UnauthorizedError, ValidationError } from '../errors';
+import { env } from '../lib/env';
 
 export interface TokenPayload {
   id: string;
@@ -30,7 +31,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
 
     try {
-        const payload = jwt.verify(token, process.env.JWT_SECRET!) as unknown as TokenPayload;
+        const payload = jwt.verify(token, env.JWT_SECRET!) as unknown as TokenPayload;
         req.account = payload;
         next();
     } catch {

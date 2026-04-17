@@ -1,7 +1,8 @@
 import pino from 'pino';
+import { env } from './env';
 
-const isDev = process.env.NODE_ENV === 'development';
-const isTest = process.env.NODE_ENV === 'test';
+const isDev = env.NODE_ENV === 'development';
+const isTest = env.NODE_ENV === 'test';
 
 const logger = pino({
   level: isTest ? 'silent' : 'info',

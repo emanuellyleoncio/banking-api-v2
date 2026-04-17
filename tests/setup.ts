@@ -3,11 +3,12 @@ config({ path: '.env.test', override: true });
 
 import { execSync } from 'child_process';
 import prisma from '../src/lib/prisma';
+import { env } from '../src/lib/env';
 
 
 beforeAll(async () => {
   execSync('npx prisma migrate deploy', {
-    env: { ...process.env, DATABASE_URL: process.env.DATABASE_URL },
+    env: { ...env, DATABASE_URL: env.DATABASE_URL },
   });
 });
 

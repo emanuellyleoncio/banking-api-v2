@@ -8,6 +8,7 @@ import { ConflictError, ForbiddenError, NotFoundError } from '../errors';
 import bcrypt from 'bcryptjs';
 import jwt, { type Secret, type SignOptions } from 'jsonwebtoken';
 import { withSpan } from '../lib/tracing';
+import { env } from '../lib/env';
 
 type RegisterData = z.infer<typeof registerSchema>;
 type LoginInput = z.infer<typeof loginSchema>;
@@ -42,13 +43,13 @@ export const authService = {
         select: { id: true, number: true, name: true, email: true },
       });
 
-      const secret = process.env.JWT_SECRET;
+      const secret = env.JWT_SECRET;
       if (!secret) throw new Error('JWT_SECRET is not defined.');
 
       const token = jwt.sign(
         { id: account.id, number: account.number },
         secret,
-        { expiresIn: process.env.JWT_EXPIRES_IN ?? '7d' } as jwt.SignOptions
+        { expiresIn: env.JWT_EXPIRES_IN ?? '7d' } as jwt.SignOptions
       );
 
       return { account, token };
@@ -63,13 +64,13 @@ export const authService = {
       const valid = await bcrypt.compare(data.password, account.password);
       if (!valid) throw new ForbiddenError('Invalid credentials.');
 
-      const secret = process.env.JWT_SECRET;
+      const secret = env.JWT_SECRET;
       if (!secret) throw new Error('JWT_SECRET is not defined.');
 
       const token = jwt.sign(
         { id: account.id, number: account.number },
         secret,
-        { expiresIn: process.env.JWT_EXPIRES_IN ?? '7d' } as jwt.SignOptions
+        { expiresIn: env.JWT_EXPIRES_IN ?? '7d' } as jwt.SignOptions
       );
 
       return { token };

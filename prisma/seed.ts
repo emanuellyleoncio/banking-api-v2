@@ -2,9 +2,10 @@ import "dotenv/config";
 import { faker } from '@faker-js/faker/locale/pt_BR';
 import { PrismaClient, TransferType } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
+import { env } from "../src/lib/env";
 
 const prisma = new PrismaClient({
-  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+  adapter: new PrismaPg({ connectionString: env.DATABASE_URL })
 })
 
 async function main() {
@@ -19,7 +20,7 @@ async function main() {
   const adminAccount = await prisma.account.create({
     data: {
       number: 1001,
-      balance: 500000, // R$ 5.000,00
+      balance: 500000,
       name: 'Admin User',
       document: '12345678901',
       birthDate: new Date('1990-01-01'),
@@ -48,7 +49,7 @@ async function main() {
 
   console.log('Gerando histórico de transações...');
 
-  // 3. Criar Depósitos e Saques para a conta Admin
+
   await prisma.deposit.createMany({
     data: [
       { amount: 10000, accountId: adminAccount.id },
@@ -62,7 +63,7 @@ async function main() {
     ],
   });
 
-  // 4. Criar Transferências entre contas
+
   for (const acc of accounts) {
     await prisma.transfer.create({
       data: {
