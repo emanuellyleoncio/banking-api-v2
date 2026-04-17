@@ -7,8 +7,8 @@ export const accountController = {
         try {
             const result = await accountService.list();
             res.json(result);
-        } catch (err) { 
-            next(err); 
+        } catch (error) { 
+            next(error); 
         }
     },
 
@@ -16,8 +16,8 @@ export const accountController = {
         try {
             const result = await accountService.update(req.account.id, req.body);
             res.json(result);
-        } catch (err) { 
-            next(err); 
+        } catch (error) { 
+            next(error); 
         }
     },
 
@@ -25,8 +25,8 @@ export const accountController = {
         try {
             await accountService.remove(req.account.id);
             res.status(204).send();
-        } catch (err) { 
-            next(err); 
+        } catch (error) { 
+            next(error); 
         }
     },
 };

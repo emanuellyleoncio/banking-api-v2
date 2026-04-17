@@ -2,13 +2,14 @@ import 'dotenv/config';
 import express from 'express';
 import errorHandler from './middleware/errorHandler';
 
-import routes from './routes/index'
+
 import logger from './lib/logger';
+import router from './routes/index';
 
 const app = express();
 app.use(express.json());
 
-app.use('/contas', routes);
+app.use('/api', router);
 
 
 app.use(errorHandler);

@@ -34,7 +34,7 @@ export const authService = {
       phone: data.phone ?? null,
       email: data.email,
       password: passwordHash,
-    }as any,
+    } as any,
     select: { id: true, number: true, name: true, email: true },
   });
 

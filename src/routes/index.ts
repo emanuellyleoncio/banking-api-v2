@@ -3,8 +3,10 @@ const router = Router()
 
 import accountRouter from "./account";
 import authRouter from "./auth";
+import transactionRouter from "./transaction";
 
-router.use('/account', accountRouter);
+router.use('/accounts', accountRouter);
 router.use('/auth', authRouter);
+router.use('/transactions', transactionRouter);
 
-module.exports = router;
+export default router;
