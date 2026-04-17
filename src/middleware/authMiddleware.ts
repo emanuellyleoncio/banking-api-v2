@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 import { ForbiddenError, UnauthorizedError, ValidationError } from '../errors';
 
 export interface TokenPayload {
-    id: number;
-    number: number;
+  id: string;
+  number: number;
 }
 
 declare global {

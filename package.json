@@ -9,7 +9,10 @@
     "dev": "nodemon --exec tsx src/server.ts",
     "start": "node dist/index.js",
     "test": "NODE_ENV=test jest --runInBand",
-    "test:watch": "NODE_ENV=test jest --runInBand --watch"
+    "test:watch": "NODE_ENV=test jest --runInBand --watch",
+    "infra:local": "docker compose -f docker-compose.yml -f docker-compose.local.yml up -d",
+    "infra:down": "docker compose -f docker-compose.yml -f docker-compose.local.yml down",
+    "infra:prod": "docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -40,6 +43,12 @@
     "typescript": "^6.0.2"
   },
   "dependencies": {
+    "@opentelemetry/api": "^1.9.1",
+    "@opentelemetry/auto-instrumentations-node": "^0.73.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.215.0",
+    "@opentelemetry/resources": "^2.7.0",
+    "@opentelemetry/sdk-node": "^0.215.0",
+    "@opentelemetry/semantic-conventions": "^1.40.0",
     "@prisma/adapter-pg": "^7.7.0",
     "@prisma/client": "^7.7.0",
     "bcryptjs": "^3.0.3",
