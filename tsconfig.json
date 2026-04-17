@@ -9,7 +9,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "types": ["node"],
+    "types": ["jest", "node"],
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
