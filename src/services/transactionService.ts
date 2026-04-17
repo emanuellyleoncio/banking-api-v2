@@ -14,7 +14,9 @@ const toReais = (amount: number) => amount / 100;
 
 async function findAccount(accountId: string) {
   const account = await prisma.account.findUnique({ where: { id: accountId } });
-  if (!account) throw new NotFoundError('Account not found.');
+  if (!account) {
+    throw new NotFoundError('Account not found.');
+  }
   return account;
 }
 

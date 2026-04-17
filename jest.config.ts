@@ -9,7 +9,8 @@ const config: Config = {
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
-  setupFilesAfterEnv: ['<rootDir>/tests/env.ts', '<rootDir>/tests/setup.ts'],
+  setupFiles: ['<rootDir>/tests/env.ts'],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   testMatch: ['**/tests/**/*.test.ts'],
   forceExit: true,
   clearMocks: true,

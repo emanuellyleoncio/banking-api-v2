@@ -9,20 +9,16 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "types": ["jest", "node"],
+    "types": [
+      "jest",
+      "node"
+    ],
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
+    "outDir": "dist",
+    "rootDir": "src",
 
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
-
-    // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
@@ -30,5 +26,17 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests",
+    "prisma",
+    "generated",
+    "jest.config.ts",
+    "prisma.config.ts"
+  ]
 }

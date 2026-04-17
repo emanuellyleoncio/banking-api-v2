@@ -12,7 +12,8 @@
     "test:watch": "NODE_ENV=test jest --runInBand --watch",
     "infra:local": "docker compose -f docker-compose.yml -f docker-compose.local.yml up -d",
     "infra:down": "docker compose -f docker-compose.yml -f docker-compose.local.yml down",
-    "infra:prod": "docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build"
+    "infra:prod": "docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build",
+    "build": "tsc --outDir dist"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

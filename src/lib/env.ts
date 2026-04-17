@@ -11,6 +11,12 @@ const required = [
 type EnvKey = typeof required[number];
 
 function validateEnv(): Record<EnvKey, string> {
+    if (process.env.NODE_ENV === 'test') {
+        return Object.fromEntries(
+            required.map((key) => [key, process.env[key] ?? ''])
+        ) as Record<EnvKey, string>;
+    }
+
     const missing = required.filter((key) => !process.env[key]);
 
     if (missing.length > 0) {

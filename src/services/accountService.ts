@@ -25,7 +25,7 @@ export const accountService = {
             });
         })
     },
-    update: async (accountId: number, data: UpdateInput) => {
+    update: async (accountId: string, data: UpdateInput) => {
         return withSpan('accountService.update', async () => {
             const account = await prisma.account.findUnique({ where: { id: accountId } });
             if (!account) {
@@ -64,7 +64,7 @@ export const accountService = {
             });
         })
     },
-    remove: async (accountId: number) => {
+    remove: async (accountId: string) => {
         return withSpan('accountService.remove', async () => {
             const account = await prisma.account.findUnique({ where: { id: accountId } });
             if (!account) {
