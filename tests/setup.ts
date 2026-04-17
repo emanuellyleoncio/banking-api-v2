@@ -22,3 +22,7 @@ afterEach(async () => {
 afterAll(async () => {
   await prisma.$disconnect();
 });
+
+afterAll(async () => {
+  await prisma.$disconnect();
+});

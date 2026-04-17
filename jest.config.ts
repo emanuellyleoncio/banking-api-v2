@@ -13,6 +13,7 @@ const config: Config = {
   testMatch: ['**/tests/**/*.test.ts'],
   forceExit: true,
   clearMocks: true,
+  openHandlesTimeout: 5000,
 };
 
 export default config;
