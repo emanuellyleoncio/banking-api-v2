@@ -1,0 +1,25 @@
+services:
+  db:
+    restart: unless-stopped
+
+  jaeger:
+    ports:
+      - "16686:16686"
+      - "4318:4318"
+
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/bank-db
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+      BANK_ADMIN_PASSWORD: ${BANK_ADMIN_PASSWORD}
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318/v1/traces
+    depends_on:
+      db:
+        condition: service_healthy
+        
